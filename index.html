@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prizebooth – Play. Predict. Win.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1018;
+      --bg-elevated: #1a1b27;
+      --accent: #775CDF;
+      --accent-light: #b4a4ff;
+      --text-primary: #f5f5ff;
+      --text-secondary: #9aa0c2;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(15,16,24,0.45);
+      font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top, rgba(119,92,223,0.18), transparent 45%), var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    header nav {
+      display: flex;
+      gap: 18px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    header nav a:hover { color: var(--text-primary); }
+
+    .cta-button {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, var(--accent), #8f7eff);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(119, 92, 223, 0.35);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(119, 92, 223, 0.45);
+    }
+
+    main { padding: 0 24px 120px; }
+
+    .hero {
+      max-width: 1080px;
+      margin: 60px auto 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 48px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.6rem);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 28px; max-width: 520px; }
+    .hero .stats {
+      display: flex;
+      gap: 18px;
+      margin-top: 32px;
+    }
+    .hero .stat-card {
+      background: rgba(26, 27, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      flex: 1;
+      backdrop-filter: blur(16px);
+    }
+    .hero .stat-card span {
+      display: block;
+      color: var(--accent-light);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+    .hero .preview {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: rgba(15,16,24,0.65);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      padding: 32px;
+    }
+    .hero .preview::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+
+    .section {
+      max-width: 1080px;
+      margin: 0 auto 90px;
+    }
+    .section header {
+      padding: 0;
+      margin-bottom: 32px;
+    }
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      margin-bottom: 10px;
+    }
+    .section p { color: var(--text-secondary); max-width: 620px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: rgba(26,27,39,0.82);
+      border-radius: 20px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      transition: transform 200ms ease, border-color 200ms ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(145,122,255,0.35);
+    }
+    .feature-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .testimonial-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .testimonial {
+      background: rgba(18,19,28,0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .testimonial footer {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .testimonial footer span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6d59f5, #9a72ff);
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .cta-banner {
+      max-width: 960px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(119,92,223,0.85), rgba(98,205,255,0.65));
+      border-radius: 24px;
+      padding: clamp(28px, 5vw, 42px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .cta-banner h3 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: 12px; }
+    .cta-banner p { color: rgba(255,255,255,0.85); margin-bottom: 20px; }
+    .cta-banner .cta-button { background: #fff; color: #39257a; box-shadow: none; }
+    .cta-banner .cta-button:hover { transform: translateY(-1px); }
+
+    footer {
+      max-width: 1080px;
+      margin: 70px auto 40px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    footer nav { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer nav a:hover { color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      header nav { display: none; }
+      header { justify-content: space-between; }
+      .hero .stats { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="https://raw.githubusercontent.com/prizebooth/assets/main/logo-mark.svg" alt="" width="28" height="28">
+      Prizebooth
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#why">Why Prizebooth</a>
+      <a href="#testimonials">Players</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="cta-button" href="#download">Get the App</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Play smart. Predict better. Win more.</h1>
+        <p>
+          Prizebooth blends live sports, player props, and community analytics into a single, intuitive experience.
+          Mix & match your picks, track your progress in real time, and discover the edge that separates fans from winners.
+        </p>
+        <div class="hero-actions">
+          <a class="cta-button" href="#download">Start Your Free Trial</a>
+          <a style="margin-left:16px; color: var(--accent-light);" href="#features">Explore Features →</a>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <span>Average win rate</span>
+            <strong style="font-size:1.8rem;">+32%</strong>
+          </div>
+          <div class="stat-card">
+            <span>Picks tracked this season</span>
+            <strong style="font-size:1.8rem;">274K</strong>
+          </div>
+          <div class="stat-card">
+            <span>Active sports</span>
+            <strong style="font-size:1.8rem;">12+</strong>
+          </div>
+        </div>
+      </div>
+      <div class="preview">
+        <img src="mobile-ui-preview.png" alt="Prizebooth mobile preview" style="width:100%; display:block; border-radius:18px;">
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <header>
+        <h2>Everything you need to build a winning lineup</h2>
+        <p>Prizebooth gives you deep data, real-time updates, and lightning-fast entries—all wrapped in a beautiful app experience.</p>
+      </header>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>📊 Smart Props Dashboard</h3>
+          <p>Track player lines, historical performance, and market movement in one unified view tailored for props bettors.</p>
+        </article>
+        <article class="feature-card">
+          <h3>⚡ Live Entry Sync</h3>
+          <p>Submit plays instantly and monitor every stat change as it happens—no refreshing, no waiting.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🧠 Edge Insights</h3>
+          <p>Under-the-hood analytics highlight value opportunities and player trends so you know where to focus.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🎟️ Community Drops</h3>
+          <p>Discover exclusive promotions and boosted lines, curated by Prizebooth partners and creators.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="why" class="section">
+      <header>
+        <h2>Why players switch to Prizebooth</h2>
+        <p>
+          Other platforms lock you into rigid cards or clunky interfaces. Prizebooth was designed from the ground up
+          for prop-first players who want flexibility, speed, and transparency.
+        </p>
+      </header>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>🎯 Precision UI</h3>
+          <p>Every interaction is tuned for the way bettors actually build cards: search fast, compare lines, add entries, repeat.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🔄 Seamless bankroll flow</h3>
+          <p>Wallet, bonuses, rewards, and payouts—all synchronized across mobile and web so you stay in control.</p>
+        </article>
+        <article class="feature-card">
+          <h3>🛡️ Security first</h3>
+          <p>Two-factor authentication, advanced risk monitoring, and biometric unlock on supported devices.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section">
+      <header>
+        <h2>Trusted by thousands of sharp fans</h2>
+        <p>From casual players to seasoned analysts, our community loves how Prizebooth upgrades their nightly sweat.</p>
+      </header>
+      <div class="testimonial-strip">
+        <article class="testimonial">
+          “Prizebooth helps me spot discrepancies before lines move. The live card tracker is clutch on busy slates.”
+          <footer><span>AK</span>Alex K. — Charlotte, NC</footer>
+        </article>
+        <article class="testimonial">
+          “It feels like the first propbook actually built for prop bettors. Smooth, fast, and the promos hit different.”
+          <footer><span>SO</span>Sydney O. — Boston, MA</footer>
+        </article>
+        <article class="testimonial">
+          “Love how everything—entries, odds history, and boosts—is integrated. I’m never going back.”
+          <footer><span>RM</span>Ryan M. — Phoenix, AZ</footer>
+        </article>
+      </div>
+    </section>
+
+    <section id="download" class="cta-banner">
+      <div>
+        <h3>Ready to call your shot?</h3>
+        <p>Download Prizebooth and claim your launch bonus. Available on iOS and Android.</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:14px;">
+        <a class="cta-button" href="#">App Store</a>
+        <a class="cta-button" href="#">Google Play</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <?php echo date('Y'); ?> Prizebooth. All rights reserved.</div>
+    <nav>
+      <a href="#">Responsible Play</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="mailto:support@prizebooth.com">Contact</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
